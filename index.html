@@ -1,10 +1,450 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>LiveCallHub</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LiveCallHub</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #f4f6fa;
+      color: #172033;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: bold;
+    }
+
+    .hero {
+      background: white;
+      text-align: center;
+      padding: 75px 20px 85px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span {
+      color: #2563eb;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: #687386;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 15px 32px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 9px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .button:hover {
+      background: #1d4ed8;
+    }
+
+    .features {
+      padding: 60px 20px;
+      max-width: 1050px;
+      margin: auto;
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 40px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 35px 25px;
+      text-align: center;
+      box-shadow: 0 7px 25px rgba(0, 0, 0, 0.06);
+    }
+
+    .icon {
+      font-size: 40px;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+      font-size: 21px;
+    }
+
+    .card p {
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .signup-section {
+      background: #111827;
+      color: white;
+      padding: 65px 20px;
+    }
+
+    .signup-box {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      color: #172033;
+      padding: 35px 25px;
+      border-radius: 15px;
+    }
+
+    .signup-box h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .signup-box .subtitle {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-bottom: 18px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #2563eb;
+    }
+
+    .referral-box {
+      background: #eff6ff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .referral-box strong {
+      color: #2563eb;
+      font-size: 19px;
+    }
+
+    .submit-button {
+      width: 100%;
+      margin-top: 5px;
+    }
+
+    .success {
+      display: none;
+      background: #ecfdf5;
+      color: #065f46;
+      padding: 18px;
+      border-radius: 9px;
+      margin-top: 20px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .referral-section {
+      background: #172033;
+      color: white;
+      text-align: center;
+      padding: 55px 20px;
+    }
+
+    .referral-code {
+      display: inline-block;
+      background: white;
+      color: #111827;
+      padding: 13px 22px;
+      border-radius: 8px;
+      font-size: 20px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 25px;
+      color: #6b7280;
+      background: white;
+    }
+
+    @media (max-width: 750px) {
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Welcome to LiveCallHub</h1>
-    <p>Your website is working!</p>
+
+  <header>
+    <div class="logo">📞 LiveCallHub</div>
+  </header>
+
+  <section class="hero">
+    <h1>Welcome to <span>LiveCallHub</span></h1>
+
+    <p>
+      Connect, communicate and discover a simple way to
+      get started with LiveCallHub.
+    </p>
+
+    <a href="#signup" class="button">
+      Get Started
+    </a>
+  </section>
+
+  <section class="features">
+
+    <h2>Why LiveCallHub?</h2>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="icon">📞</div>
+        <h3>Easy Communication</h3>
+        <p>
+          A simple and user-friendly experience designed
+          for communication.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon">⚡</div>
+        <h3>Simple Setup</h3>
+        <p>
+          Get started quickly with a straightforward
+          registration experience.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🔗</div>
+        <h3>Referral Access</h3>
+        <p>
+          Share your referral link and allow others
+          to join through your referral code.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="signup-section" id="signup">
+
+    <div class="signup-box">
+
+      <h2>Get Started</h2>
+
+      <p class="subtitle">
+        Enter a display name to continue.
+      </p>
+
+      <div class="referral-box">
+        Referral code:
+        <br>
+        <strong id="signupReferral">DIRECT</strong>
+      </div>
+
+      <form id="signupForm">
+
+        <label for="displayName">
+          Display Name
+        </label>
+
+        <input
+          type="text"
+          id="displayName"
+          placeholder="Enter your display name"
+          maxlength="40"
+          required
+        >
+
+        <button
+          type="submit"
+          class="button submit-button"
+        >
+          Continue
+        </button>
+
+      </form>
+
+      <div class="success" id="successMessage">
+        <strong>You're ready to continue!</strong>
+        <br><br>
+        Welcome, <span id="userName"></span>.
+        <br>
+        Your referral code is
+        <strong id="successReferral"></strong>.
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="referral-section">
+
+    <h2>Your Referral Link</h2>
+
+    <p>
+      Share this link with someone you want to invite.
+    </p>
+
+    <div class="referral-code" id="referralDisplay">
+      Loading...
+    </div>
+
+    <br>
+
+    <button
+      class="button"
+      onclick="copyReferralLink()"
+    >
+      Copy Referral Link
+    </button>
+
+  </section>
+
+  <footer class="footer">
+    © 2026 LiveCallHub. All rights reserved.
+  </footer>
+
+
+  <script>
+
+    // Read referral code from the URL
+    const params =
+      new URLSearchParams(window.location.search);
+
+    const referral =
+      params.get("ref") || "DIRECT";
+
+
+    // Display referral code
+    document.getElementById("signupReferral")
+      .textContent = referral;
+
+    document.getElementById("referralDisplay")
+      .textContent = referral;
+
+
+    // Get Started form
+    document.getElementById("signupForm")
+      .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const name =
+          document.getElementById("displayName")
+            .value.trim();
+
+        if (!name) {
+          return;
+        }
+
+        document.getElementById("userName")
+          .textContent = name;
+
+        document.getElementById("successReferral")
+          .textContent = referral;
+
+        document.getElementById("successMessage")
+          .style.display = "block";
+
+        document.getElementById("signupForm")
+          .style.display = "none";
+
+        document.getElementById("successMessage")
+          .scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+
+      });
+
+
+    // Copy complete referral URL
+    function copyReferralLink() {
+
+      const referralLink =
+        window.location.origin +
+        window.location.pathname +
+        "?ref=" +
+        encodeURIComponent(referral);
+
+      navigator.clipboard.writeText(referralLink)
+        .then(function() {
+
+          alert("Referral link copied!");
+
+        })
+        .catch(function() {
+
+          alert("Unable to copy the link.");
+
+        });
+
+    }
+
+  </script>
+
 </body>
-</html>
+    </html>
