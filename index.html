@@ -3,64 +3,208 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LiveCallHub Photos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#000000">
+<title>LiveCallHub - Live Photos</title>
 
 <style>
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   background: #000;
-  font-family: Arial, sans-serif;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
 }
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 3px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+  padding: 5px;
 }
 
-.gallery img {
+.photo {
+  position: relative;
+  overflow: hidden;
+  background: #151515;
+  border-radius: 8px;
+  aspect-ratio: 4 / 3;
+}
+
+.photo img {
   display: block;
   width: 100%;
-  height: 230px;
+  height: 100%;
   object-fit: cover;
+}
+
+.live-badge {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  background: #ff202b;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  box-shadow: 0 2px 8px #0005;
+}
+
+.live-badge::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.online-dot {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 13px;
+  height: 13px;
+  background: #00e676;
+  border-radius: 50%;
+  box-shadow: 0 0 9px #00e676, 0 0 18px #00e67688;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: .55;
+    transform: scale(.82);
+  }
 }
 
 @media (min-width: 700px) {
   .gallery {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    padding: 8px;
   }
 
-  .gallery img {
-    height: 300px;
+  .photo {
+    border-radius: 9px;
+  }
+
+  .live-badge {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  .online-dot {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+@media (max-width: 350px) {
+  .gallery {
+    grid-template-columns: 1fr;
   }
 }
 </style>
 </head>
 
 <body>
-<div class="gallery">
 
-<img src="IMG-20261024-WA0003.jpg" alt="Photo 1">
-<img src="IMG-20261025-WA0001.jpg" alt="Photo 2">
-<img src="IMG-20261025-WA0002.jpg" alt="Photo 3">
-<img src="IMG-20261025-WA0003.jpg" alt="Photo 4">
-<img src="IMG-20261025-WA0004.jpg" alt="Photo 5">
-<img src="IMG-20261025-WA0005.jpg" alt="Photo 6">
-<img src="IMG-20261025-WA0006.jpg" alt="Photo 7">
-<img src="IMG-20261025-WA0007.jpg" alt="Photo 8">
-<img src="IMG-20261025-WA0008.jpg" alt="Photo 9">
-<img src="IMG-20261025-WA0009.jpg" alt="Photo 10">
-<img src="IMG-20261025-WA0010.jpg" alt="Photo 11">
-<img src="IMG-20261025-WA0011.jpg" alt="Photo 12">
-<img src="IMG-20261025-WA0012.jpg" alt="Photo 13">
+<main class="gallery">
 
-</div>
+  <div class="photo">
+    <img src="IMG-20261024-WA0003.jpg" alt="Photo 1" fetchpriority="high">
+    <span class="live-badge">LIVE</span>
+    <span class="online-dot"></span>
+  </div>
+
+  <div class="photo">
+    <img src="IMG-20261025-WA0001.jpg" alt="Photo 2" loading="lazy">
+    <span class="live-badge">LIVE</span>
+    <span class="online-dot"></span>
+  </div>
+
+  <div class="photo">
+    <img src="IMG-20261025-WA0002.jpg" alt="Photo 3" loading="lazy">
+    <span class="live-badge">LIVE</span>
+    <span class="online-dot"></span>
+  </div>
+
+  <div class="photo">
+    <img src="IMG-20261025-WA0003.jpg" alt="Photo 4" loading="lazy">
+    <span class="live-badge">LIVE</span>
+    <span class="online-dot"></span>
+  </div>
+
+  <div class="photo">
+    <img src="IMG-20261025-WA0004.jpg" alt="Photo 5" loading="lazy">
+    <span class="live-badge">LIVE</span>
+    <span class="online-dot"></span>
+  </div>
+
+  <div class="photo">
+    <img src="IMG-20261025-WA0005.jpg" alt="Photo 6" loading="lazy">
+    <span class="live-badge">LIVE</span>
+    <span class="online-dot"></span>
+  </div>
+
+  <div class="photo">
+    <img src="IMG-20261025-WA0006.jpg" alt="Photo 7" loading="lazy">
+    <span class="live-badge">LIVE</span>
+    <span class="online-dot"></span>
+  </div>
+
+  <div class="photo">
+    <img src="IMG-20261025-WA0007.jpg" alt="Photo 8" loading="lazy">
+    <span class="live-badge">LIVE</span>
+    <span class="online-dot"></span>
+  </div>
+
+  <div class="photo">
+    <img src="IMG-20261025-WA0008.jpg" alt="Photo 9" loading="lazy">
+    <span class="live-badge">LIVE</span>
+    <span class="online-dot"></span>
+  </div>
+
+  <div class="photo">
+    <img src="IMG-20261025-WA0009.jpg" alt="Photo 10" loading="lazy">
+    <span class="live-badge">LIVE</span>
+    <span class="online-dot"></span>
+  </div>
+
+  <div class="photo">
+    <img src="IMG-20261025-WA0010.jpg" alt="Photo 11" loading="lazy">
+    <span class="live-badge">LIVE</span>
+    <span class="online-dot"></span>
+  </div>
+
+  <div class="photo">
+    <img src="IMG-20261025-WA0011.jpg" alt="Photo 12" loading="lazy">
+    <span class="live-badge">LIVE</span>
+    <span class="online-dot"></span>
+  </div>
+
+  <div class="photo">
+    <img src="IMG-20261025-WA0012.jpg" alt="Photo 13" loading="lazy">
+    <span class="live-badge">LIVE</span>
+    <span class="online-dot"></span>
+  </div>
+
+</main>
+
 </body>
 </html>
