@@ -4,239 +4,796 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#07111f">
+<meta name="theme-color" content="#080b10">
 <title>LiveCallHub</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#050b16;color:white;font-family:Arial,sans-serif;min-height:100vh}
-button{border:0;cursor:pointer;font-weight:bold;font-size:16px}
-.screen{display:none;min-height:100vh}
-.screen.active{display:flex}
+:root {
+  --bg: #080b10;
+  --panel: #121923;
+  --panel2: #182230;
+  --gold: #f4c15d;
+  --green: #20e58a;
+  --red: #ff3b54;
+  --muted: #aab4c2;
+  --text: #f7f8fb;
+}
 
-/* WELCOME */
-#welcome{align-items:center;justify-content:center;text-align:center;padding:25px;
-background:radial-gradient(circle,#173a49,#050b16 70%)}
-.welcome-box{max-width:420px}
-.logo{font-size:36px;font-weight:800;margin-bottom:20px}
-.logo span{color:#32d5bd}
-.welcome-box p{color:#b5c3d4;margin:12px 0 25px}
-.loader{width:42px;height:42px;border:4px solid #263b4c;
-border-top-color:#32d5bd;border-radius:50%;animation:spin .8s linear infinite;margin:25px auto}
-@keyframes spin{to{transform:rotate(360deg)}}
+* { box-sizing: border-box; }
 
-/* INCOMING CALL */
-#incoming{align-items:center;justify-content:center;padding:20px;
-background:radial-gradient(circle,#173a49,#050b16 75%)}
-.call-card{width:100%;max-width:390px;text-align:center}
-.call-card h2{font-size:26px;margin:20px 0 8px}
-.calling{color:#34d9bf;margin-bottom:20px}
-.caller-photo{position:relative;width:100%;aspect-ratio:3/4;
-max-height:470px;background:#172536;border-radius:22px;overflow:hidden}
-.caller-photo img{width:100%;height:100%;object-fit:cover}
-.live{position:absolute;top:12px;left:12px;background:#ff2638;
-color:white;border-radius:5px;padding:6px 9px;font-size:12px;font-weight:800}
-.live:before{content:"";display:inline-block;width:7px;height:7px;
-background:white;border-radius:50%;margin-right:5px}
-.dot{position:absolute;top:15px;right:15px;width:13px;height:13px;
-background:#00ef76;border-radius:50%;box-shadow:0 0 12px #00ef76;
-animation:pulse 1.2s infinite}
-@keyframes pulse{50%{opacity:.45;transform:scale(.8)}}
-.call-actions{display:flex;justify-content:center;gap:20px;margin-top:28px}
-.call-actions button{padding:15px 25px;border-radius:35px;color:white;min-width:135px}
-.answer{background:#00bd68}
-.decline{background:#ed3045}
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 15% 0%, #f4c15d1f, transparent 30%),
+    radial-gradient(circle at 90% 30%, #20e58a14, transparent 25%),
+    var(--bg);
+  font-family: system-ui, Arial, sans-serif;
+}
 
-/* GALLERY */
-#gallery-screen{display:none}
-#gallery-screen.active{display:block}
-.gallery-header{position:sticky;top:0;z-index:5;background:#07111f;
-padding:15px;text-align:center;border-bottom:1px solid #243344}
-.gallery-header h2{font-size:22px}
-.gallery-header span{color:#32d5bd}
-.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;padding:5px}
-.photo{position:relative;aspect-ratio:3/4;overflow:hidden;background:#142131;border-radius:7px}
-.photo img{width:100%;height:100%;object-fit:cover;display:block}
-.photo .live{top:8px;left:8px}
-.photo .dot{top:11px;right:11px;width:11px;height:11px}
-#ended{align-items:center;justify-content:center;text-align:center;padding:25px}
-#ended h2{margin-bottom:15px}
-#ended p{color:#b5c3d4;margin-bottom:25px}
-.action-button{background:#32d5bd;color:#041714;padding:13px 24px;border-radius:10px}
+button, input { font: inherit; }
+button { cursor: pointer; }
 
-@media(min-width:700px){
-.gallery{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:8px}
-.call-card{max-width:420px}
+.screen {
+  display: none;
+  min-height: 100vh;
+  padding: 24px 16px;
+}
+
+.screen.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrap {
+  width: min(100%, 980px);
+  margin: auto;
+}
+
+.brand {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 17px;
+  background: linear-gradient(135deg, var(--gold), #d88a21);
+  color: #15100a;
+  font-weight: 900;
+  font-size: 22px;
+}
+
+.brand h1 {
+  margin: 12px 0 4px;
+  font-size: clamp(28px, 5vw, 42px);
+}
+
+.brand h1 span,
+.mini-brand span {
+  color: var(--gold);
+}
+
+.muted { color: var(--muted); }
+
+.welcome-card,
+.call-card,
+.modal-card,
+.ended-card {
+  background: rgba(18,25,35,.96);
+  border: 1px solid #ffffff1a;
+  border-radius: 24px;
+  padding: clamp(22px, 5vw, 38px);
+  box-shadow: 0 22px 70px #00000059;
+}
+
+.welcome-card,
+.ended-card {
+  text-align: center;
+  max-width: 560px;
+  margin: auto;
+}
+
+.welcome-card h2,
+.ended-card h2 {
+  font-size: clamp(25px, 5vw, 34px);
+}
+
+.welcome-card p,
+.ended-card p {
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.loader {
+  width: 42px;
+  height: 42px;
+  border: 3px solid #f4c15d33;
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  margin: 26px auto 0;
+  animation: spin .9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.call-card {
+  width: min(100%, 420px);
+  text-align: center;
+}
+
+.caller-photo {
+  width: 136px;
+  height: 136px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--gold);
+  background: var(--panel2);
+}
+
+.call-label {
+  color: var(--green);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.call-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 28px;
+}
+
+.round-btn {
+  border: 0;
+  border-radius: 50%;
+  width: 66px;
+  height: 66px;
+  color: white;
+  font-size: 25px;
+}
+
+.answer { background: #16b96d; }
+.decline { background: #e83950; }
+
+.action-labels {
+  display: flex;
+  justify-content: center;
+  gap: 38px;
+  margin-top: 9px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.gallery-header {
+  text-align: center;
+  margin: 0 auto 24px;
+}
+
+.gallery-header h2 {
+  margin-bottom: 8px;
+  font-size: clamp(27px, 5vw, 38px);
+}
+
+.gallery-header p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 14px;
+}
+
+.photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: 17px;
+  padding: 0;
+  background: var(--panel);
+  border: 1px solid #ffffff21;
+  aspect-ratio: 3 / 4;
+  text-align: left;
+}
+
+.photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(transparent, #000000b8);
+  pointer-events: none;
+}
+
+.live-badge {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  left: 10px;
+  border-radius: 6px;
+  background: var(--red);
+  color: white;
+  padding: 5px 8px;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.live-dot {
+  position: absolute;
+  z-index: 2;
+  top: 12px;
+  right: 12px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 4px #20e58a2e, 0 0 16px var(--green);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    box-shadow: 0 0 0 7px #20e58a14, 0 0 22px var(--green);
+  }
+}
+
+.photo-caption {
+  position: absolute;
+  z-index: 2;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  font-weight: 750;
+  font-size: 13px;
+}
+
+.photo-caption small {
+  display: block;
+  color: #dce4ed;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.btn {
+  border: 0;
+  border-radius: 12px;
+  padding: 13px 18px;
+  font-weight: 800;
+}
+
+.btn-primary {
+  color: #211606;
+  background: linear-gradient(135deg, var(--gold), #e5a83c);
+}
+
+.btn-secondary {
+  color: var(--text);
+  background: #293545;
+  border: 1px solid #ffffff1a;
+}
+
+.btn-full { width: 100%; }
+
+.topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.mini-brand {
+  font-weight: 900;
+}
+
+.packages-title {
+  margin: 0 0 7px;
+  font-size: clamp(25px, 5vw, 34px);
+}
+
+.packages-subtitle {
+  color: var(--muted);
+  line-height: 1.55;
+  margin-bottom: 20px;
+}
+
+.package-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 12px;
+}
+
+.package-option {
+  display: block;
+  text-align: left;
+  padding: 17px 14px;
+  border-radius: 16px;
+  color: var(--text);
+  background: var(--panel2);
+  border: 1px solid #ffffff1f;
+  min-height: 130px;
+}
+
+.package-option.selected {
+  border: 2px solid var(--gold);
+  background: #f4c15d1a;
+  padding: 16px 13px;
+}
+
+.price {
+  display: block;
+  color: var(--gold);
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.minutes {
+  display: block;
+  margin-top: 6px;
+  font-weight: 800;
+}
+
+.choose {
+  display: block;
+  margin-top: 9px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.package-option.selected .choose {
+  color: var(--gold);
+}
+
+.form-group { margin: 20px 0 12px; }
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 750;
+}
+
+.phone-input {
+  display: block;
+  width: 100%;
+  border-radius: 12px;
+  padding: 15px 14px;
+  border: 1px solid #3b485a;
+  background: #0b1119;
+  color: white;
+  outline: none;
+}
+
+.phone-input:focus {
+  border-color: var(--gold);
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 7px;
+}
+
+.error {
+  color: #ff7585;
+  min-height: 20px;
+  font-size: 13px;
+  margin: 7px 0;
+}
+
+.notice {
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #f4c15d14;
+  border: 1px solid #f4c15d38;
+  color: #f7dfad;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 15px;
+}
+
+.summary {
+  display: none;
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 14px;
+  background: #0b1119;
+  border: 1px solid #ffffff1a;
+}
+
+.summary.show { display: block; }
+
+.summary p { color: var(--muted); }
+.summary strong { color: var(--text); }
+
+.footer {
+  text-align: center;
+  color: #778394;
+  font-size: 12px;
+  margin: 25px 0 5px;
+}
+
+@media (max-width: 480px) {
+  .screen { padding: 18px 12px; }
+  .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .package-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .package-option:last-child { grid-column: 1 / -1; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- WELCOME SCREEN -->
-<section id="welcome" class="screen active">
-  <div class="welcome-box">
-    <div class="logo">LiveCall<span>Hub</span></div>
-    <h1>Welcome to LiveCallHub</h1>
-    <p>Connecting people. One call at a time.</p>
-    <div class="loader"></div>
-    <p>Preparing your experience...</p>
+<!-- WELCOME -->
+<section id="welcomeScreen" class="screen active">
+  <div class="wrap">
+    <div class="brand">
+      <div class="brand-mark">LC</div>
+      <h1>LiveCall<span>Hub</span></h1>
+      <p class="muted">Meet, connect and enjoy the moment.</p>
+    </div>
+
+    <div class="welcome-card">
+      <h2>Welcome to LiveCallHub</h2>
+      <p>Get ready to connect. Your experience is loading now.</p>
+      <div class="loader"></div>
+    </div>
   </div>
 </section>
 
-<!-- INCOMING VIDEO CALL SCREEN -->
-<section id="incoming" class="screen">
+<!-- INCOMING CALL -->
+<section id="incomingScreen" class="screen">
   <div class="call-card">
-    <div class="logo">LiveCall<span>Hub</span></div>
-    <div class="caller-photo">
-      <img id="callerImage" src="" alt="Incoming caller">
-      <span class="live">LIVE</span>
-      <span class="dot"></span>
+    <div class="call-label">Incoming video call</div>
+    <div style="margin:25px 0 15px">
+      <img id="callerPhoto" class="caller-photo"
+           src="IMG-20261024-WA0003.jpg" alt="Caller photo">
     </div>
-    <h2>Incoming Video Call</h2>
-    <p class="calling">Someone is calling you...</p>
+
+    <h2>LiveCallHub</h2>
+    <p class="muted">Someone wants to connect with you</p>
+
     <div class="call-actions">
-      <button class="decline" id="declineBtn">Decline</button>
-      <button class="answer" id="answerBtn">Answer</button>
+      <button id="declineBtn" class="round-btn decline"
+              aria-label="Decline call">✕</button>
+      <button id="answerBtn" class="round-btn answer"
+              aria-label="Answer call">☎</button>
+    </div>
+
+    <div class="action-labels">
+      <span>Decline</span><span>Answer</span>
     </div>
   </div>
 </section>
 
-<!-- LIVE PHOTO GALLERY -->
-<section id="gallery-screen" class="screen">
-  <header class="gallery-header">
-    <h2>LiveCall<span>Hub</span> — LIVE Photos</h2>
-  </header>
-  <main class="gallery" id="photoGallery"></main>
+<!-- GALLERY -->
+<section id="galleryScreen" class="screen">
+  <div class="wrap">
+    <div class="topline">
+      <div class="mini-brand">LiveCall<span>Hub</span></div>
+      <button id="newCallBtn" class="btn btn-secondary">New call</button>
+    </div>
+
+    <div class="gallery-header">
+      <h2>Live Gallery</h2>
+      <p>
+        Tap any photo to view the available packages.<br>
+        Choose a package and enter your Safaricom number.
+      </p>
+    </div>
+
+    <div id="galleryGrid" class="gallery-grid"></div>
+    <p class="footer">Select a photo to continue to packages.</p>
+  </div>
 </section>
 
-<!-- CALL DECLINED SCREEN -->
-<section id="ended" class="screen">
-  <div>
-    <h2>Call Ended</h2>
-    <p>You declined the incoming call.</p>
-    <button class="action-button" id="nextCallBtn">Incoming Call Again</button>
+<!-- PACKAGES AND PHONE NUMBER -->
+<section id="packagesScreen" class="screen">
+  <div class="wrap">
+    <div class="topline">
+      <div class="mini-brand">LiveCall<span>Hub</span></div>
+      <button id="backGalleryBtn" class="btn btn-secondary">← Gallery</button>
+    </div>
+
+    <div class="modal-card">
+      <h2 class="packages-title">Choose your package</h2>
+
+      <p class="packages-subtitle">
+        Selected photo: <strong id="selectedPhotoName">Live photo</strong>.
+        Choose the package that suits you.
+      </p>
+
+      <div id="packageGrid" class="package-grid"></div>
+
+      <form id="paymentForm" novalidate>
+        <div class="form-group">
+          <label for="phoneNumber">Safaricom M-Pesa number</label>
+
+          <input
+            id="phoneNumber"
+            class="phone-input"
+            type="tel"
+            inputmode="numeric"
+            autocomplete="tel"
+            maxlength="10"
+            placeholder="e.g. 0712345678 or 0112345678"
+            required
+          >
+
+          <div class="hint">
+            Enter 10 digits starting with 01 or 07.
+          </div>
+
+          <div id="phoneError" class="error" role="alert"></div>
+        </div>
+
+        <button class="btn btn-primary btn-full" type="submit">
+          Continue
+        </button>
+      </form>
+
+      <div id="paymentSummary" class="summary" aria-live="polite">
+        <h3>Package summary</h3>
+        <p>Package: <strong id="summaryPackage">—</strong></p>
+        <p>Duration: <strong id="summaryMinutes">—</strong></p>
+        <p>M-Pesa number: <strong id="summaryPhone">—</strong></p>
+
+        <div class="notice">
+          Package selected and number validated. M-Pesa payment is not
+          connected yet, so no payment request has been sent.
+        </div>
+
+        <button id="editSelectionBtn" class="btn btn-secondary btn-full"
+                type="button" style="margin-top:12px">
+          Edit selection
+        </button>
+      </div>
+    </div>
+
+    <div class="footer">
+      M-Pesa payment will be enabled after secure integration.
+    </div>
+  </div>
+</section>
+
+<!-- DECLINED CALL -->
+<section id="endedScreen" class="screen">
+  <div class="wrap">
+    <div class="ended-card">
+      <div class="brand-mark">LC</div>
+      <h2>Call declined</h2>
+      <p>You can try another call whenever you're ready.</p>
+      <button id="tryAgainBtn" class="btn btn-primary">
+        Try another call
+      </button>
+    </div>
   </div>
 </section>
 
 <script>
-(() => {
-  "use strict";
+const photos = [
+  "IMG-20261024-WA0003.jpg",
+  "IMG-20261025-WA0001.jpg",
+  "IMG-20261025-WA0002.jpg",
+  "IMG-20261025-WA0003.jpg",
+  "IMG-20261025-WA0004.jpg",
+  "IMG-20261025-WA0005.jpg",
+  "IMG-20261025-WA0006.jpg",
+  "IMG-20261025-WA0007.jpg",
+  "IMG-20261025-WA0008.jpg",
+  "IMG-20261025-WA0009.jpg",
+  "IMG-20261025-WA0010.jpg",
+  "IMG-20261025-WA0011.jpg",
+  "IMG-20261025-WA0012.jpg"
+];
 
-  const photos = [
-    "IMG-20261024-WA0003.jpg",
-    "IMG-20261025-WA0001.jpg",
-    "IMG-20261025-WA0002.jpg",
-    "IMG-20261025-WA0003.jpg",
-    "IMG-20261025-WA0004.jpg",
-    "IMG-20261025-WA0005.jpg",
-    "IMG-20261025-WA0006.jpg",
-    "IMG-20261025-WA0007.jpg",
-    "IMG-20261025-WA0008.jpg",
-    "IMG-20261025-WA0009.jpg",
-    "IMG-20261025-WA0010.jpg",
-    "IMG-20261025-WA0011.jpg",
-    "IMG-20261025-WA0012.jpg"
-  ];
+const packages = [
+  { price: 100, minutes: 35 },
+  { price: 150, minutes: 50 },
+  { price: 200, minutes: 75 },
+  { price: 250, minutes: 90 },
+  { price: 300, minutes: 115 }
+];
 
-  const screens = [
-    "welcome",
-    "incoming",
-    "gallery-screen",
-    "ended"
-  ];
+const screenIds = [
+  "welcomeScreen",
+  "incomingScreen",
+  "galleryScreen",
+  "packagesScreen",
+  "endedScreen"
+];
 
-  const showScreen = id => {
-    screens.forEach(screenId => {
-      document.getElementById(screenId).classList.toggle(
-        "active", screenId === id
-      );
-    });
-  };
+const galleryGrid = document.getElementById("galleryGrid");
+const packageGrid = document.getElementById("packageGrid");
+const callerPhoto = document.getElementById("callerPhoto");
+const phoneInput = document.getElementById("phoneNumber");
+const phoneError = document.getElementById("phoneError");
+const paymentSummary = document.getElementById("paymentSummary");
 
-  // Shuffle without repeating a caller photo within one cycle.
-  function shuffledPhotos() {
-    const list = [...photos];
+let selectedPackageIndex = 0;
+let callerQueue = [];
 
-    for (let i = list.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [list[i], list[j]] = [list[j], list[i]];
-    }
+function showScreen(id) {
+  screenIds.forEach(screenId => {
+    document.getElementById(screenId).classList.toggle(
+      "active", screenId === id
+    );
+  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 
-    return list;
+function shuffledPhotos() {
+  const list = [...photos];
+
+  for (let i = list.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [list[i], list[j]] = [list[j], list[i]];
   }
 
-  // Remember the caller rotation on this device.
-  function getQueue() {
-    try {
-      const saved = JSON.parse(localStorage.getItem("lchCallQueue"));
-      if (Array.isArray(saved) &&
-          saved.every(name => photos.includes(name))) {
-        return saved;
-      }
-    } catch (_) {}
+  return list;
+}
 
-    return [];
+function nextCaller() {
+  if (callerQueue.length === 0) {
+    callerQueue = shuffledPhotos();
   }
 
-  let queue = getQueue();
-  let currentCaller = null;
+  callerPhoto.src = callerQueue.pop();
+  showScreen("incomingScreen");
+}
 
-  function nextCaller() {
-    if (queue.length === 0) {
-      queue = shuffledPhotos();
-    }
-
-    currentCaller = queue.shift();
-
-    try {
-      localStorage.setItem("lchCallQueue", JSON.stringify(queue));
-    } catch (_) {}
-
-    document.getElementById("callerImage").src = currentCaller;
-    showScreen("incoming");
-  }
-
-  // Create the gallery using all available photos.
-  const gallery = document.getElementById("photoGallery");
-
-  photos.forEach((filename, index) => {
-    const card = document.createElement("div");
-    card.className = "photo";
-
-    const img = document.createElement("img");
-    img.src = filename;
-    img.alt = "Live photo " + (index + 1);
-    img.loading = "lazy";
-
-    const badge = document.createElement("span");
-    badge.className = "live";
-    badge.textContent = "LIVE";
-
-    const dot = document.createElement("span");
-    dot.className = "dot";
-
-    card.append(img, badge, dot);
-    gallery.appendChild(card);
-  });
-
-  document.getElementById("answerBtn").addEventListener("click", () => {
-    showScreen("gallery-screen");
-  });
-
-  document.getElementById("declineBtn").addEventListener("click", () => {
-    showScreen("ended");
-  });
-
-  document.getElementById("nextCallBtn").addEventListener("click", () => {
-    nextCaller();
-  });
-
-  // Welcome page remains visible for three seconds.
+function startWelcome() {
+  showScreen("welcomeScreen");
   setTimeout(nextCaller, 3000);
+}
 
-})();
+function renderGallery() {
+  galleryGrid.innerHTML = "";
+
+  photos.forEach((photo, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "photo";
+    button.setAttribute(
+      "aria-label", `Open packages for photo ${index + 1}`
+    );
+
+    button.innerHTML = `
+      <img src="${photo}" alt="Live photo ${index + 1}" loading="lazy">
+      <span class="live-badge">● LIVE</span>
+      <span class="live-dot" aria-hidden="true"></span>
+      <span class="photo-caption">
+        Live photo ${index + 1}
+        <small>Tap to view packages</small>
+      </span>
+    `;
+
+    button.addEventListener("click", () => openPackages(index + 1));
+    galleryGrid.appendChild(button);
+  });
+}
+
+function renderPackages() {
+  packageGrid.innerHTML = "";
+
+  packages.forEach((pkg, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "package-option" +
+      (index === selectedPackageIndex ? " selected" : "");
+
+    button.setAttribute(
+      "aria-pressed",
+      index === selectedPackageIndex ? "true" : "false"
+    );
+
+    button.innerHTML = `
+      <span class="price">KSh ${pkg.price}</span>
+      <span class="minutes">${pkg.minutes} minutes</span>
+      <span class="choose">
+        ${index === selectedPackageIndex ? "✓ Selected" : "Tap to select"}
+      </span>
+    `;
+
+    button.addEventListener("click", () => {
+      selectedPackageIndex = index;
+      renderPackages();
+      paymentSummary.classList.remove("show");
+    });
+
+    packageGrid.appendChild(button);
+  });
+}
+
+function openPackages(photoNumber) {
+  document.getElementById("selectedPhotoName").textContent =
+    `Live photo ${photoNumber}`;
+
+  selectedPackageIndex = 0;
+  phoneError.textContent = "";
+  phoneInput.value = "";
+  paymentSummary.classList.remove("show");
+
+  renderPackages();
+  showScreen("packagesScreen");
+}
+
+function isValidSafaricomNumber(number) {
+  return /^(07|01)\d{8}$/.test(number);
+}
+
+document.getElementById("answerBtn").addEventListener("click", () => {
+  renderGallery();
+  showScreen("galleryScreen");
+});
+
+document.getElementById("declineBtn").addEventListener("click", () => {
+  showScreen("endedScreen");
+});
+
+document.getElementById("newCallBtn").addEventListener("click", nextCaller);
+document.getElementById("tryAgainBtn").addEventListener("click", nextCaller);
+
+document.getElementById("backGalleryBtn").addEventListener("click", () => {
+  showScreen("galleryScreen");
+});
+
+document.getElementById("editSelectionBtn").addEventListener("click", () => {
+  paymentSummary.classList.remove("show");
+  phoneInput.focus();
+});
+
+phoneInput.addEventListener("input", () => {
+  phoneInput.value = phoneInput.value.replace(/\D/g, "").slice(0, 10);
+  phoneError.textContent = "";
+  paymentSummary.classList.remove("show");
+});
+
+document.getElementById("paymentForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const phone = phoneInput.value.trim();
+
+  if (!isValidSafaricomNumber(phone)) {
+    phoneError.textContent =
+      "Enter a valid 10-digit number starting with 01 or 07.";
+    phoneInput.focus();
+    return;
+  }
+
+  const pkg = packages[selectedPackageIndex];
+
+  document.getElementById("summaryPackage").textContent =
+    `KSh ${pkg.price}`;
+
+  document.getElementById("summaryMinutes").textContent =
+    `${pkg.minutes} minutes`;
+
+  document.getElementById("summaryPhone").textContent = phone;
+
+  paymentSummary.classList.add("show");
+});
+
+renderGallery();
+renderPackages();
+startWelcome();
 </script>
 
 </body>
-</html>
+  </html>
+  
