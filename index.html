@@ -3,343 +3,64 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#07111f">
-<title>LiveCallHub | Connect Without Limits</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LiveCallHub Photos</title>
+
 <style>
-:root{--bg:#07111f;--panel:#101e31;--text:#f4f7fb;--muted:#a9b8cc;--accent:#35d0ba;--border:rgba(255,255,255,.1)}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif;line-height:1.6}
-a{color:inherit;text-decoration:none}
-button,input{font:inherit}
-button,.button{cursor:pointer}
-.container{width:min(1120px,92%);margin:auto}
-header{position:sticky;top:0;z-index:10;background:rgba(7,17,31,.96);border-bottom:1px solid var(--border)}
-.navbar{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.logo{font-size:1.45rem;font-weight:800}
-.logo span,h1 span,footer strong{color:var(--accent)}
-nav{display:flex;align-items:center;gap:20px;color:var(--muted)}
-nav a:hover{color:var(--accent)}
-.button{display:inline-flex;justify-content:center;align-items:center;border:0;border-radius:10px;padding:12px 19px;font-weight:700}
-.button-primary{background:var(--accent);color:#041b1a}
-.button-secondary{background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--text)}
-.hero{padding:85px 0;background:radial-gradient(ellipse at 80% 20%,rgba(53,208,186,.14),transparent 38%)}
-.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:45px}
-.eyebrow{display:inline-block;color:var(--accent);background:rgba(53,208,186,.1);border-radius:30px;padding:7px 13px;margin-bottom:20px;font-size:.82rem}
-h1{font-size:clamp(2.5rem,5.5vw,4.6rem);line-height:1.08;margin-bottom:22px}
-.hero p,.section-heading p,.feature-card p,.signup-wrap>p{color:var(--muted)}
-.hero p{margin-bottom:26px;max-width:590px}
-.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
-.visual-card{padding:30px;background:linear-gradient(145deg,#19344a,#101c30);border:1px solid var(--border);border-radius:24px}
-.visual-icon{font-size:3rem;margin-bottom:15px}
-.visual-card h2{margin-bottom:10px}
-.visual-card p{margin-bottom:15px}
-.status{color:#9ce8d9}
-section{padding:70px 0}
-.section-heading{text-align:center;max-width:680px;margin:0 auto 38px}
-.section-heading h2{font-size:clamp(1.8rem,4vw,2.7rem);margin-bottom:12px}
-.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.feature-card{padding:26px;background:var(--panel);border:1px solid var(--border);border-radius:16px}
-.feature-icon{font-size:2rem;margin-bottom:12px}
-.feature-card h3{margin-bottom:10px}
-.gallery-section{background:#0a1627}
-.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.gallery-item{position:relative;overflow:hidden;aspect-ratio:4/3;border-radius:14px;background:var(--panel);border:1px solid var(--border)}
-.gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
-.gallery-item:hover img{transform:scale(1.05)}
-.gallery-item figcaption{position:absolute;bottom:0;left:0;right:0;padding:25px 12px 10px;background:linear-gradient(transparent,rgba(0,0,0,.8))}
-.signup-wrap{max-width:700px;margin:auto;padding:32px;background:var(--panel);border:1px solid var(--border);border-radius:18px}
-.signup-wrap h2{font-size:2rem;margin-bottom:10px}
-.form-group{margin-bottom:16px}
-.form-group label{display:block;margin-bottom:6px;font-weight:bold}
-.form-group input{width:100%;padding:13px;border-radius:9px;background:#091526;border:1px solid var(--border);color:var(--text)}
-.signup-wrap form button{width:100%}
-.referral-box{margin-top:24px;padding:18px;border-radius:12px;background:rgba(53,208,186,.07);border:1px solid rgba(53,208,186,.22)}
-.referral-box p{color:var(--muted);font-size:.9rem;margin-bottom:8px}
-.referral-link,.message{overflow-wrap:anywhere;margin-bottom:12px}
-.referral-link{color:var(--accent)}
-footer{padding:26px 0;border-top:1px solid var(--border);color:var(--muted);text-align:center}
-@media(max-width:800px){
-.hero-grid{grid-template-columns:1fr}
-.features-grid{grid-template-columns:1fr}
-.gallery-grid{grid-template-columns:repeat(2,1fr)}
-nav{gap:12px}
-nav a:not(.button){display:none}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-@media(max-width:480px){
-.navbar{min-height:65px}
-.logo{font-size:1.15rem}
-.navbar .button{padding:9px;font-size:.85rem}
-.hero{padding:55px 0}
-section{padding:50px 0}
-.gallery-grid{grid-template-columns:1fr}
-.signup-wrap{padding:22px}
+
+body {
+  background: #000;
+  font-family: Arial, sans-serif;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3px;
+}
+
+.gallery img {
+  display: block;
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+}
+
+@media (min-width: 700px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .gallery img {
+    height: 300px;
+  }
 }
 </style>
 </head>
+
 <body>
-<header>
-<div class="container navbar">
-<a class="logo" href="#home">LiveCall<span>Hub</span></a>
-<nav>
-<a href="#home">Home</a>
-<a href="#features">Features</a>
-<a href="#gallery">Photos</a>
-<a href="#signup" class="button button-primary">Get Started</a>
-</nav>
+<div class="gallery">
+
+<img src="IMG-20261024-WA0003.jpg" alt="Photo 1">
+<img src="IMG-20261025-WA0001.jpg" alt="Photo 2">
+<img src="IMG-20261025-WA0002.jpg" alt="Photo 3">
+<img src="IMG-20261025-WA0003.jpg" alt="Photo 4">
+<img src="IMG-20261025-WA0004.jpg" alt="Photo 5">
+<img src="IMG-20261025-WA0005.jpg" alt="Photo 6">
+<img src="IMG-20261025-WA0006.jpg" alt="Photo 7">
+<img src="IMG-20261025-WA0007.jpg" alt="Photo 8">
+<img src="IMG-20261025-WA0008.jpg" alt="Photo 9">
+<img src="IMG-20261025-WA0009.jpg" alt="Photo 10">
+<img src="IMG-20261025-WA0010.jpg" alt="Photo 11">
+<img src="IMG-20261025-WA0011.jpg" alt="Photo 12">
+<img src="IMG-20261025-WA0012.jpg" alt="Photo 13">
+
 </div>
-</header>
-<main>
-<section class="hero" id="home">
-<div class="container hero-grid">
-<div>
-<span class="eyebrow">WELCOME TO LIVECALLHUB</span>
-<h1>Connect better.<br><span>Grow together.</span></h1>
-<p>Welcome to LiveCallHub — connect with people, communicate easily, and grow your network. Join our community and discover new possibilities.</p>
-<div class="hero-actions">
-<a href="#signup" class="button button-primary">Join LiveCallHub</a>
-<a href="#features" class="button button-secondary">Explore Features</a>
-</div>
-</div>
-<div class="visual-card">
-<div class="visual-icon">🌐</div>
-<h2>Your connections. One hub.</h2>
-<p>Communication, collaboration, and community all start here.</p>
-<div class="status">Your next connection starts here</div>
-</div>
-</div>
-</section>
-<section id="features">
-
-  
-<div class="container">
-<div class="section-heading">
-<h2>Everything starts with a connection</h2>
-<p>Connect with others, share opportunities, and grow together.</p>
-</div>
-
-<div class="features-grid">
-<article class="feature-card">
-<div class="feature-icon">🤝</div>
-<h3>Connect with People</h3>
-<p>Build your network and discover opportunities through new connections.</p>
-</article>
-
-<article class="feature-card">
-<div class="feature-icon">💬</div>
-<h3>Communicate Easily</h3>
-<p>Make communication the beginning of collaboration and growth.</p>
-</article>
-
-<article class="feature-card">
-<div class="feature-icon">🚀</div>
-<h3>Grow Your Network</h3>
-<p>Invite others to discover LiveCallHub and expand your community.</p>
-</article>
-</div>
-</div>
-</section>
-
-<section class="gallery-section" id="gallery">
-<div class="container">
-<div class="section-heading">
-<h2>Our Photo Gallery</h2>
-<p>Explore photos shared with LiveCallHub.</p>
-</div>
-
-<div class="gallery-grid">
-<figure class="gallery-item">
-<img src="IMG-20261024-WA0003.jpg" alt="LiveCallHub photo 1" loading="lazy">
-<figcaption>LiveCallHub Gallery</figcaption>
-</figure>
-
-<figure class="gallery-item">
-<img src="IMG-20261025-WA0001.jpg" alt="LiveCallHub photo 2" loading="lazy">
-<figcaption>Our Community</figcaption>
-</figure>
-
-<figure class="gallery-item">
-<img src="IMG-20261025-WA0002.jpg" alt="LiveCallHub photo 3" loading="lazy">
-<figcaption>Connect and Share</figcaption>
-</figure>
-
-<figure class="gallery-item">
-<img src="IMG-20261025-WA0003.jpg" alt="LiveCallHub photo 4" loading="lazy">
-<figcaption>Our Gallery</figcaption>
-</figure>
-
-<figure class="gallery-item">
-<img src="IMG-20261025-WA0004.jpg" alt="LiveCallHub photo 5" loading="lazy">
-<figcaption>Community Moments</figcaption>
-</figure>
-
-<figure class="gallery-item">
-<img src="IMG-20261025-WA0005.jpg" alt="LiveCallHub photo 6" loading="lazy">
-<figcaption>Stay Connected</figcaption>
-</figure>
-
-<figure class="gallery-item">
-<img src="IMG-20261025-WA0006.jpg" alt="LiveCallHub photo 7" loading="lazy">
-<figcaption>Shared Experiences</figcaption>
-</figure>
-
-<figure class="gallery-item">
-<img src="IMG-20261025-WA0007.jpg" alt="LiveCallHub photo 8" loading="lazy">
-<figcaption>People and Connections</figcaption>
-</figure>
-
-<figure class="gallery-item">
-<img src="IMG-20261025-WA0008.jpg" alt="LiveCallHub photo 9" loading="lazy">
-<figcaption>Discover More</figcaption>
-</figure>
-
-<figure class="gallery-item">
-<img src="IMG-20261025-WA0009.jpg" alt="LiveCallHub photo 10" loading="lazy">
-<figcaption>Our Community</figcaption>
-</figure>
-
-<figure class="gallery-item">
-<img src="IMG-20261025-WA0010.jpg" alt="LiveCallHub photo 11" loading="lazy">
-<figcaption>Connect Together</figcaption>
-</figure>
-
-<figure class="gallery-item">
-<img src="IMG-20261025-WA0011.jpg" alt="LiveCallHub photo 12" loading="lazy">
-<figcaption>Memorable Moments</figcaption>
-</figure>
-
-<figure class="gallery-item">
-<img src="IMG-20261025-WA0012.jpg" alt="LiveCallHub photo 13" loading="lazy">
-<figcaption>LiveCallHub</figcaption>
-</figure>
-</div>
-</div>
-</section>
-
-<section id="signup">
-<div class="container">
-<div class="signup-wrap">
-<h2>Join LiveCallHub</h2>
-<p>Ready to connect? Enter your details below.</p>
-  
-<form id="signupForm">
-<div class="form-group">
-<label for="fullName">Full Name</label>
-<input id="fullName" name="fullName" type="text" placeholder="Enter your full name" required>
-</div>
-
-<div class="form-group">
-<label for="email">Email Address</label>
-<input id="email" name="email" type="email" placeholder="Enter your email" required>
-</div>
-
-<div class="form-group">
-<label for="phone">Phone Number</label>
-<input id="phone" name="phone" type="tel" placeholder="Enter your phone number" required>
-</div>
-
-<button type="submit" class="button button-primary">Continue</button>
-</form>
-
-<p id="formMessage" class="message" role="status"></p>
-
-<div class="referral-box">
-<p>Your Referral Link</p>
-<div id="referralLink" class="referral-link"></div>
-<button id="copyReferral" type="button" class="button button-secondary">Copy Referral Link</button>
-<p id="copyMessage" class="message" role="status"></p>
-</div>
-</div>
-</div>
-</section>
-</main>
-
-<footer>
-<div class="container">
-<p>&copy; <span id="year"></span> <strong>LiveCallHub</strong>. All rights reserved.</p>
-</div>
-</footer>
-
-<script>
-(() => {
-"use strict";
-
-const referralLink = document.getElementById("referralLink");
-const copyButton = document.getElementById("copyReferral");
-const copyMessage = document.getElementById("copyMessage");
-const form = document.getElementById("signupForm");
-const formMessage = document.getElementById("formMessage");
-
-document.getElementById("year").textContent =
-  new Date().getFullYear();
-
-const params = new URLSearchParams(window.location.search);
-const referralCode = params.get("ref");
-
-const shareUrl = new URL(window.location.href);
-shareUrl.search = "";
-shareUrl.hash = "";
-
-if (referralCode) {
-  shareUrl.searchParams.set("ref", referralCode);
-}
-
-referralLink.textContent = shareUrl.toString();
-
-async function copyText(text) {
-  if (navigator.clipboard && window.isSecureContext) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-
-  const input = document.createElement("textarea");
-  input.value = text;
-  input.style.position = "fixed";
-  input.style.opacity = "0";
-  document.body.appendChild(input);
-  input.select();
-
-  const copied = document.execCommand("copy");
-  input.remove();
-
-  if (!copied) {
-    throw new Error("Copy failed");
-  }
-}
-
-copyButton.addEventListener("click", async () => {
-  try {
-    await copyText(referralLink.textContent);
-    copyMessage.textContent = "Referral link copied!";
-  } catch {
-    copyMessage.textContent =
-      "Copy failed. Please copy the link manually.";
-  }
-});
-
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const fullName =
-    document.getElementById("fullName").value.trim();
-  const email =
-    document.getElementById("email").value.trim();
-  const phone =
-    document.getElementById("phone").value.trim();
-
-  if (!fullName || !email || !phone) {
-    formMessage.textContent = "Please complete all fields.";
-    return;
-  }
-
-  formMessage.textContent =
-    "Thank you, " + fullName +
-    "! Your details are valid, but registration must be connected to the backend.";
-
-  console.info("Referral code:", referralCode || "None");
-});
-})();
-</script>
 </body>
 </html>
